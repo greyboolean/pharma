@@ -33,7 +33,7 @@ model Medicine {
   name        String
   description String
   quantity    Int
-  deleteAt    DateTime?
+  deletedAt    DateTime?
 }
 
 model Customer {
