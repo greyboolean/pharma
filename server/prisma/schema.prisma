@@ -22,7 +22,7 @@ enum Role {
 model User {
   id        Int       @id @default(autoincrement())
   name      String
-  username  String
+  username  String    @unique
   password  String
   role      Role
   deletedAt DateTime?
@@ -33,13 +33,13 @@ model Medicine {
   name        String
   description String
   quantity    Int
-  deletedAt    DateTime?
+  deletedAt   DateTime?
 }
 
 model Customer {
   id          Int       @id @default(autoincrement())
   name        String
-  email       String
+  email       String    @unique
   address     String
   phoneNumber String
   deletedAt   DateTime?
