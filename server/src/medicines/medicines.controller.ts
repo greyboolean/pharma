@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
@@ -33,8 +34,12 @@ export class MedicinesController {
 
   @Get(':id')
   @ApiOkResponse({ type: MedicineEntity })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.medicinesService.findOne(id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const medicine = await this.medicinesService.findOne(+id);
+    if (!medicine) {
+      throw new NotFoundException(`Medicine with id ${id} does not exist`);
+    }
+    return medicine;
   }
 
   @Patch(':id')
