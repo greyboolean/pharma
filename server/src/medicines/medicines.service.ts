@@ -7,16 +7,16 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class MedicinesService {
   constructor(private prisma: PrismaService) {}
 
+  create(createMedicineDto: CreateMedicineDto) {
+    return this.prisma.medicine.create({ data: createMedicineDto });
+  }
+
   findAll() {
     return this.prisma.medicine.findMany({ where: { deletedAt: null } });
   }
 
   findOne(id: number) {
     return this.prisma.medicine.findUnique({ where: { id } });
-  }
-
-  create(createMedicineDto: CreateMedicineDto) {
-    return this.prisma.medicine.create({ data: createMedicineDto });
   }
 
   update(id: number, updateMedicineDto: UpdateMedicineDto) {

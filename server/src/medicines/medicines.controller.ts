@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
@@ -32,22 +33,22 @@ export class MedicinesController {
 
   @Get(':id')
   @ApiOkResponse({ type: MedicineEntity })
-  findOne(@Param('id') id: string) {
-    return this.medicinesService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.medicinesService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: MedicineEntity })
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateMedicineDto: UpdateMedicineDto,
   ) {
-    return this.medicinesService.update(+id, updateMedicineDto);
+    return this.medicinesService.update(id, updateMedicineDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: MedicineEntity })
-  remove(@Param('id') id: string) {
-    return this.medicinesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.medicinesService.remove(id);
   }
 }
